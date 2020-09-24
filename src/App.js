@@ -1,9 +1,10 @@
 import React from 'react';
+import Quiz from './components/Quiz';
 
 function App() {
   return (
     <div>
-        <h1>Harry Potter</h1>
+      <Quiz />
     </div>
   );
 }
