@@ -3,24 +3,23 @@ import PropTypes from 'prop-types';
 
 const handleValueChange = (onValueChange) => (event) => {
   event.persist();
-  console.log(event.target.value);
   onValueChange(event.target.value);
 };
 
-const TextAnswer = () => {
+const TextAnswer = ({ onAnswerChange }) => {
   return (
     <div>
       {' '}
       <input
         type='text'
         placeholder='Type your answer...'
-        onChange={handleValueChange}
+        onChange={handleValueChange(onAnswerChange)}
       />
     </div>
   );
 };
 
-const RadioAnswer = ({ question }) => {
+const RadioAnswer = ({ question, onAnswerChange }) => {
   const { answerOptions } = question;
 
   return (
@@ -32,7 +31,7 @@ const RadioAnswer = ({ question }) => {
               type='radio'
               value={option}
               name={question.id}
-              onChange={handleValueChange}
+              onChange={handleValueChange(onAnswerChange)}
             />
             {option}
           </label>
@@ -42,31 +41,69 @@ const RadioAnswer = ({ question }) => {
   );
 };
 
-const SelectAnswer = ({ question }) => {
+const SelectAnswer = ({ question, onAnswerChange }) => {
   const { answerOptions } = question;
   return (
     <div>
       <label>
-        <select name={question.id} onChange={handleValueChange}>
-          <option>{answerOptions[0]}</option>
-          <option>{answerOptions[1]}</option>
+        <select name={question.id} onChange={handleValueChange(onAnswerChange)}>
+          {answerOptions.map((option) => (
+            <option key={option}>{option}</option>
+          ))}
         </select>
       </label>
     </div>
   );
 };
 
-const CheckboxAnswer = () => {
-  return <div></div>;
+const CheckboxAnswer = ({ question, onAnswerChange }) => {
+  const { answerOptions } = question;
+  const [selectedOptions, setSelectedOptions] = useState([]);
+
+  const handleSelection = useCallback(
+    (event) => {
+      const { value, checked } = event.target;
+
+      const nextSelectedOption = checked
+        ? selectedOptions.concat(value)
+        : selectedOptions.filter((option) => option !== value);
+
+      setSelectedOptions(nextSelectedOption);
+      onAnswerChange(nextSelectedOption);
+    },
+    [selectedOptions, onAnswerChange]
+  );
+
+  return (
+    <div>
+      {answerOptions.map((option) => (
+        <div key={option}>
+          <label>
+            <input
+              type='checkbox'
+              value={option}
+              name={question.id}
+              onChange={handleSelection}
+            />
+            {option}
+          </label>
+        </div>
+      ))}
+    </div>
+  );
 };
 
-const RangeAnswer = ({ question }) => {
+const RangeAnswer = ({ question, onAnswerChange }) => {
   const { answerOptions } = question;
   const [currentValue, setCurrentValue] = useState(answerOptions.from);
 
-  const handleRangeChange = useCallback((value) => {
-    setCurrentValue(value);
-  }, []);
+  const handleRangeChange = useCallback(
+    (value) => {
+      setCurrentValue(value);
+      onAnswerChange(value);
+    },
+    [onAnswerChange]
+  );
 
   return (
     <div>
@@ -93,15 +130,25 @@ const ANSWER_TYPE_COMPONENT_MAP = {
   range: RangeAnswer,
 };
 
-const Question = ({ question }) => {
+const Question = ({ question, onAnswerChange }) => {
   const QuestionInput = ANSWER_TYPE_COMPONENT_MAP[question.answerType];
+
+  const handleAnswerReceived = useCallback(
+    (answer) => {
+      onAnswerChange({ id: question.id, value: answer });
+    },
+    [onAnswerChange, question.id]
+  );
 
   return (
     <div>
       <div>{question.title}</div>
 
       <div>
-        <QuestionInput question={question} />
+        <QuestionInput
+          question={question}
+          onAnswerChange={handleAnswerReceived}
+        />
         <br />
       </div>
     </div>
