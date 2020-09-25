@@ -36,14 +36,14 @@ const ANSWER_TYPE_COMPONENT_MAP = {
 };
 
 const Question = ({ question }) => {
-  const QuestionComponent = ANSWER_TYPE_COMPONENT_MAP[question.answerType];
+  const QuestionInput = ANSWER_TYPE_COMPONENT_MAP[question.answerType];
 
   return (
     <div>
       <div>{question.title}</div>
 
       <div>
-        <QuestionComponent question={question} />
+        <QuestionInput question={question} />
       </div>
     </div>
   );
