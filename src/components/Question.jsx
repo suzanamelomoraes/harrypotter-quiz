@@ -19,12 +19,40 @@ const TextAnswer = () => {
   );
 };
 
-const RadioAnswer = () => {
-  return <div></div>;
+const RadioAnswer = ({ question }) => {
+  const { answerOptions } = question;
+
+  return (
+    <div>
+      {answerOptions.map((option) => (
+        <div key={option}>
+          <label>
+            <input
+              type='radio'
+              value={option}
+              name={question.id}
+              onChange={handleValueChange}
+            />
+            {option}
+          </label>
+        </div>
+      ))}
+    </div>
+  );
 };
 
-const SelectAnswer = () => {
-  return <div></div>;
+const SelectAnswer = ({ question }) => {
+  const { answerOptions } = question;
+  return (
+    <div>
+      <label>
+        <select name={question.id} onChange={handleValueChange}>
+          <option>{answerOptions[0]}</option>
+          <option>{answerOptions[1]}</option>
+        </select>
+      </label>
+    </div>
+  );
 };
 
 const CheckboxAnswer = () => {
@@ -53,6 +81,7 @@ const Question = ({ question }) => {
 
       <div>
         <QuestionInput question={question} />
+        <br />
       </div>
     </div>
   );
