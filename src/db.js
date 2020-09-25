@@ -2,13 +2,13 @@ const db = {
   questions: [
     {
       id: '1',
-      question: 'What is Lord Voldemort’s real name?',
+      title: 'What is Lord Voldemort’s real name?',
       answer: 'Tom Marvolo Riddle',
       answerType: 'text',
     },
     {
       id: '2',
-      question:
+      title:
         'What’s the LAST line of the book, “Harry Potter and the Sorcerer’s Stone”?',
       answer: 'I’m going to have a lot of fun with Dudley this summer...',
       answerType: 'radio',
@@ -21,7 +21,7 @@ const db = {
     },
     {
       id: '3',
-      question:
+      title:
         'According to the Dursleys, did Harry’s parents die in a car crash?',
       answer: 'True',
       answerType: 'select',
@@ -29,7 +29,7 @@ const db = {
     },
     {
       id: '4',
-      question: 'What are the houses in Hogwarts?',
+      title: 'What are the houses in Hogwarts?',
       answer: ['Gryffindor', 'Ravenclaw', 'Hufflepuff', 'Slytherin'],
       answerType: 'checkbox',
       answerOptions: [
@@ -43,7 +43,7 @@ const db = {
     },
     {
       id: '5',
-      question:
+      title:
         "How old is Harry Potter in book 1 “Harry Potter and the Sorcerer's Stone”?",
       answer: '11',
       answerType: 'range',
