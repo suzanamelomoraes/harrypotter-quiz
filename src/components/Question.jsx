@@ -47,6 +47,7 @@ const SelectAnswer = ({ question, onAnswerChange }) => {
     <div>
       <label>
         <select name={question.id} onChange={handleValueChange(onAnswerChange)}>
+          <option></option>
           {answerOptions.map((option) => (
             <option key={option}>{option}</option>
           ))}
