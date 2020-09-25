@@ -10,7 +10,7 @@ const db = {
       id: '2',
       title:
         'What’s the LAST line of the book, “Harry Potter and the Sorcerer’s Stone”?',
-      answer: 'I’m going to have a lot of fun with Dudley this summer...',
+      answer: "I'm going to have a lot of fun with Didley this summer...",
       answerType: 'radio',
       answerOptions: [
         'Goodbye, for now, Hogwarts.',
