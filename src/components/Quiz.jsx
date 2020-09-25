@@ -4,6 +4,10 @@ import Question from './Question';
 import db from '../db';
 const questions = db.questions;
 
+const handleAnswerChange = ({ id, value }) => {
+  console.log('answer:', id, value);
+};
+
 const Quiz = () => {
   return (
     <div>
@@ -12,7 +16,10 @@ const Quiz = () => {
         <ol>
           {questions.map((question) => (
             <li key={question.id}>
-              <Question question={question} />
+              <Question
+                question={question}
+                onAnswerChange={handleAnswerChange}
+              />
             </li>
           ))}
         </ol>
