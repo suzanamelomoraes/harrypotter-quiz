@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
-const handleValueChange = (event) => {
+const handleValueChange = (onValueChange) => (event) => {
   event.persist();
   console.log(event.target.value);
+  onValueChange(event.target.value);
 };
 
 const TextAnswer = () => {
@@ -59,8 +60,28 @@ const CheckboxAnswer = () => {
   return <div></div>;
 };
 
-const RangeAnswer = () => {
-  return <div></div>;
+const RangeAnswer = ({ question }) => {
+  const { answerOptions } = question;
+  const [currentValue, setCurrentValue] = useState(answerOptions.from);
+
+  const handleRangeChange = useCallback((value) => {
+    setCurrentValue(value);
+  }, []);
+
+  return (
+    <div>
+      {answerOptions.from}{' '}
+      <input
+        type='range'
+        min={answerOptions.from}
+        max={answerOptions.to}
+        defaultValue={currentValue}
+        onChange={handleValueChange(handleRangeChange)}
+      />{' '}
+      {answerOptions.to}
+      <div>{currentValue}</div>
+    </div>
+  );
 };
 
 // STRATEGY PATTERN
