@@ -7,7 +7,16 @@ const handleValueChange = (event) => {
 };
 
 const TextAnswer = () => {
-  return <div></div>;
+  return (
+    <div>
+      {' '}
+      <input
+        type='text'
+        placeholder='Type your answer...'
+        onChange={handleValueChange}
+      />
+    </div>
+  );
 };
 
 const RadioAnswer = () => {
