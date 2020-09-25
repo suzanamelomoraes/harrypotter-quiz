@@ -6,8 +6,9 @@ import db from '../db';
 const Quiz = () => {
   const questions = db.questions;
 
-  const initialCount = 0;
-  const [correctAnswers, setCorrectAnswers] = useState(initialCount);
+  const initialCorrectAnswers = 0;
+
+  const [correctAnswers, setCorrectAnswers] = useState(initialCorrectAnswers);
 
   const handleAnswerChange = ({ id, value }) => {
     questions.map((question) => {
